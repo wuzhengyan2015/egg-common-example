@@ -1,0 +1,7 @@
+{
+  "extends": "eslint-config-egg",
+  "env": {
+    "browser": true,
+    "node": true
+  }
+}

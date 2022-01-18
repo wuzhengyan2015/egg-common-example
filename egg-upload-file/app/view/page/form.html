@@ -1,0 +1,31 @@
+{% extends "../layout.html" %}
+
+{% block content %}
+<div class="container">
+  <p style="margin-top: 12px;">Form Submit</p>
+  <form class="row col-6" method="POST" action="/upload?_csrf={{ ctx.csrf |  safe }}" enctype="multipart/form-data">
+    <div class="col-12">
+      <label for="formFile" class="form-label">Choose File</label>
+      <input class="form-control" type="file" name="file" id="formFile" />
+    </div>
+    <div class="col-12" style="margin-top: 12px;">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+<hr />
+<div class="container">
+  <p style="margin-top: 12px;">Ajax Submit</p>
+  <form class="ajax-form row col-6">
+    <div class="col-12">
+      <label for="formFile" class="form-label">Choose File</label>
+      <input class="form-control" type="file" name="file" id="formFile" />
+    </div>
+    <div class="col-12" style="margin-top: 12px;">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.24.0/axios.js"></script>
+<script src="public/js/main.js"></script>
+{% endblock %}
