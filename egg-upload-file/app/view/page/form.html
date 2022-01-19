@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
   <p style="margin-top: 12px;">Form Submit</p>
-  <form class="row col-6" method="POST" action="/upload?_csrf={{ ctx.csrf |  safe }}" enctype="multipart/form-data">
+  <form class="row col-6" method="POST" action="/form?_csrf={{ ctx.csrf |  safe }}" enctype="multipart/form-data">
     <div class="col-12">
       <label for="formFile" class="form-label">Choose File</label>
       <input class="form-control" type="file" name="file" id="formFile" />

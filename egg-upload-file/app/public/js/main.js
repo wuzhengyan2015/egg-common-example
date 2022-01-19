@@ -11,7 +11,7 @@ form.addEventListener('submit', e => {
   //   method: 'POST',
   //   body: formData,
   // });
-  window.axios(`/upload?_csrf=${_csrf}`, {
+  window.axios(`/ajax?_csrf=${_csrf}`, {
     method: 'POST',
     data: formData,
     headers: {

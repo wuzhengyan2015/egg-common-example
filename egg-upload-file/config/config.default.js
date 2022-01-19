@@ -33,6 +33,8 @@ module.exports = appInfo => {
     mode: 'file',
   };
 
+  config.uploadPath = 'public/upload';
+
   return {
     ...config,
     ...userConfig,
