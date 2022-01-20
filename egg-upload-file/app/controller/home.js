@@ -14,13 +14,13 @@ class HomeController extends Controller {
   async form() {
     const { app, ctx } = this;
     const file = ctx.request.files[0];
-    const destPath = `app/${app.config.uploadPath}/${path.basename(file.filename)}`;
-    const isExists = await fs.exists(path.dirname(destPath));
+    const destFolder = `app/${app.config.uploadPath}`;
+    const isExists = await fs.exists(destFolder);
     if (!isExists) {
-      await fs.mkdir(path.dirname(destPath), { recursive: true });
+      await fs.mkdir(destFolder, { recursive: true });
     }
     const reader = fs.createReadStream(file.filepath);
-    const writer = fs.createWriteStream(destPath);
+    const writer = fs.createWriteStream(`${destFolder}/${path.basename(file.filename)}`);
     try {
       await reader.pipe(writer);
     } finally {
@@ -33,13 +33,13 @@ class HomeController extends Controller {
   async ajax() {
     const { app, ctx } = this;
     const file = ctx.request.files[0];
-    const destPath = `app/${app.config.uploadPath}/${path.basename(file.filename)}`;
-    const isExists = await fs.exists(path.dirname(destPath));
+    const destFolder = `app/${app.config.uploadPath}`;
+    const isExists = await fs.exists(destFolder);
     if (!isExists) {
-      await fs.mkdir(path.dirname(destPath), { recursive: true });
+      await fs.mkdir(destFolder, { recursive: true });
     }
     const reader = fs.createReadStream(file.filepath);
-    const writer = fs.createWriteStream(destPath);
+    const writer = fs.createWriteStream(`${destFolder}/${path.basename(file.filename)}`);
     try {
       await reader.pipe(writer);
     } finally {
@@ -48,6 +48,32 @@ class HomeController extends Controller {
 
     ctx.body = {
       url: `/${app.config.uploadPath}/${path.basename(file.filename)}`,
+      requestBody: ctx.request.body,
+    };
+  }
+
+  async multiple() {
+    const { app, ctx } = this;
+    const destFolder = `app/${app.config.uploadPath}`;
+    const isExists = await fs.exists(destFolder);
+    if (!isExists) {
+      await fs.mkdir(destFolder, { recursive: true });
+    }
+
+    const result = [];
+    try {
+      for (const file of ctx.request.files) {
+        const reader = fs.createReadStream(file.filepath);
+        const writer = fs.createWriteStream(`${destFolder}/${path.basename(file.filename)}`);
+        await reader.pipe(writer);
+        result.push(`/${app.config.uploadPath}/${path.basename(file.filename)}`);
+      }
+    } finally {
+      await ctx.cleanupRequestFiles();
+    }
+
+    ctx.body = {
+      result,
       requestBody: ctx.request.body,
     };
   }

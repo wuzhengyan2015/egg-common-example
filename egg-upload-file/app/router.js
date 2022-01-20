@@ -8,4 +8,5 @@ module.exports = app => {
   router.get('/', controller.home.index);
   router.post('/form', controller.home.form);
   router.post('/ajax', controller.home.ajax);
+  router.post('/multiple', controller.home.multiple);
 };

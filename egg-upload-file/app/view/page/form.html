@@ -18,8 +18,34 @@
   <p style="margin-top: 12px;">Ajax Submit</p>
   <form class="ajax-form row col-6">
     <div class="col-12">
-      <label for="formFile" class="form-label">Choose File</label>
-      <input class="form-control" type="file" name="file" id="formFile" />
+      <label for="formFile2" class="form-label">Choose File</label>
+      <input class="form-control" type="file" name="file" id="formFile2" />
+    </div>
+    <div class="col-12" style="margin-top: 12px;">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+<hr />
+<div class="container">
+  <p style="margin-top: 12px;">Multiple</p>
+  <form class="multile-form row col-6"  method="POST" action="/multiple?_csrf={{ ctx.csrf |  safe }}" enctype="multipart/form-data">
+    <div class="col-12">
+      <label for="formFile3" class="form-label">Choose File</label>
+      <input class="form-control" multiple type="file" name="file1" id="formFile3" />
+    </div>
+    <div class="col-12" style="margin-top: 12px;">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+<hr />
+<div class="container">
+  <p style="margin-top: 12px;">Ajax Multiple</p>
+  <form class="ajax-multiple row col-6">
+    <div class="col-12">
+      <label for="formFile4" class="form-label">Choose File</label>
+      <input class="form-control" type="file" multiple name="file" id="formFile4" />
     </div>
     <div class="col-12" style="margin-top: 12px;">
       <button type="submit" class="btn btn-primary">Submit</button>
