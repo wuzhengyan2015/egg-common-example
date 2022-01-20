@@ -5,8 +5,8 @@ const path = require('path');
 const rimraf = require('mz-modules/rimraf');
 
 describe('test/app/controller/home.test.js', () => {
-  after(() => {
-    rimraf(path.join(app.config.baseDir, 'app/public/test'));
+  after(async () => {
+    await rimraf(path.join(app.config.baseDir, 'app/public/test'));
   });
 
   it('form upload', async () => {
