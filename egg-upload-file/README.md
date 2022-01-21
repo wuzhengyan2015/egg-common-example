@@ -2,6 +2,19 @@
 
 when form sets ``enctype="multipart/form-data"``, _csrf injected by nunjucks will invalid, you should add _csrf in other way(url or header).
 
+1. set config
+```js
+config.multipart = {
+  mode: 'file',
+};
+```
+
+2. read from ctx
+```js
+const files = ctx.request.files
+```
+
+
 ## QuickStart
 
 <!-- add docs here for user -->
