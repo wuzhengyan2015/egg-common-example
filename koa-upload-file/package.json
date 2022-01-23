@@ -1,0 +1,25 @@
+{
+  "name": "koa-upload-file",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app",
+    "test": "mocha test/*.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.13.4",
+    "koa-body": "^4.2.0",
+    "koa-nunjucks-2": "^3.0.2",
+    "koa-router": "^10.1.1",
+    "koa-static": "^5.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^9.1.4",
+    "should": "^13.2.3",
+    "supertest": "^6.2.2"
+  }
+}
