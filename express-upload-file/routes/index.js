@@ -33,7 +33,10 @@ router.post('/api/upload', (req, res, next) => {
     const reader = fs.createReadStream(files.file.filepath)
     const writer = fs.createWriteStream(`public/images/${files.file.originalFilename}`)
 
-    await reader.pipe(writer)
+    reader.pipe(writer)
+    await new Promise(resolve => {
+      reader.on('end', () => { resolve(); });
+    });
     res.json({ fields, files });
   });
 })

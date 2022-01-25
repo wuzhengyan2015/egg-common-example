@@ -22,7 +22,10 @@ class HomeController extends Controller {
     const reader = fs.createReadStream(file.filepath);
     const writer = fs.createWriteStream(`${destFolder}/${path.basename(file.filename)}`);
     try {
-      await reader.pipe(writer);
+      reader.pipe(writer);
+      await new Promise(resolve => {
+        reader.on('end', () => { resolve(); });
+      });
     } finally {
       await ctx.cleanupRequestFiles();
     }
@@ -41,7 +44,10 @@ class HomeController extends Controller {
     const reader = fs.createReadStream(file.filepath);
     const writer = fs.createWriteStream(`${destFolder}/${path.basename(file.filename)}`);
     try {
-      await reader.pipe(writer);
+      reader.pipe(writer);
+      await new Promise(resolve => {
+        reader.on('end', () => { resolve(); });
+      });
     } finally {
       await ctx.cleanupRequestFiles();
     }
@@ -65,7 +71,10 @@ class HomeController extends Controller {
       for (const file of ctx.request.files) {
         const reader = fs.createReadStream(file.filepath);
         const writer = fs.createWriteStream(`${destFolder}/${path.basename(file.filename)}`);
-        await reader.pipe(writer);
+        reader.pipe(writer);
+        await new Promise(resolve => {
+          reader.on('end', () => { resolve(); });
+        });
         result.push(`/${app.config.uploadPath}/${path.basename(file.filename)}`);
       }
     } finally {

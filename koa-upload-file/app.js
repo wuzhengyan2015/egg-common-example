@@ -33,6 +33,9 @@ apiRouter.post('/upload', (ctx, next) => {
   const filePath = path.join(__dirname, 'public', file.name)
   const writer = fs.createWriteStream(filePath)
   reader.pipe(writer)
+  await new Promise(resolve => {
+    reader.on('end', () => { resolve(); });
+  });
   ctx.body = `/public/${file.name}`
 })
 

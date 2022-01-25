@@ -21,7 +21,10 @@ class HomeController extends Controller {
     const writer = fs.createWriteStream(`${destFolder}/${body.part}.${file.filename.split('.')[1]}`);
     const reader = fs.createReadStream(file.filepath);
     try {
-      await reader.pipe(writer);
+      reader.pipe(writer);
+      await new Promise(resolve => {
+        reader.on('end', () => { resolve(); });
+      });
     } finally {
       await ctx.cleanupRequestFiles();
     }
@@ -35,16 +38,16 @@ class HomeController extends Controller {
     const destFolder = `app/public/slice/${filename.split('.')[0]}`;
     const chuckPaths = await fs.readdir(destFolder);
     chuckPaths.sort((a, b) => parseInt(a) - parseInt(b));
+    const writer = fs.createWriteStream(`app/public/upload/${filename}`);
     for (let i = 0; i < chuckPaths.length; i++) {
       const path = chuckPaths[i];
-      const size = 1 * 1024 * 1024;
       const reader = fs.createReadStream(`${destFolder}/${path}`);
-      const writer = fs.createWriteStream(`app/public/upload/${filename}`, {
-        start: i * size,
-        end: (i + 1) * size,
+      reader.pipe(writer, { end: false });
+      await new Promise(resolve => {
+        reader.on('end', () => { resolve(); });
       });
-      await reader.pipe(writer);
     }
+    writer.end();
     ctx.body = 'merge';
   }
 }
