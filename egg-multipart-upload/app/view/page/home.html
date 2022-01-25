@@ -1,0 +1,19 @@
+{% extends "../layout.html" %}
+
+{% block content %}
+
+<div class="container">
+  <p style="margin-top: 12px;">Ajax MultiPart</p>
+  <form class="ajax-multipart row col-6">
+    <div class="col-12">
+      <label for="formFile4" class="form-label">Choose File</label>
+      <input class="form-control" type="file" multiple name="file" id="formFile4" />
+    </div>
+    <div class="col-12" style="margin-top: 12px;">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.24.0/axios.js"></script>
+<script src="public/js/main.js"></script>
+{% endblock %}
