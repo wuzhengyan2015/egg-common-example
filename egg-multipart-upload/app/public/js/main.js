@@ -39,7 +39,7 @@ form.addEventListener('submit', e => {
 
 function sliceFile(file) {
   const chunkList = [];
-  const chunkSize = 1 * 1024 * 1024;
+  const chunkSize = 5 * 1024;
   for (let i = 0; i < file.size; i += chunkSize) {
     const chunk = file.slice(i, i + chunkSize);
     chunkList.push(chunk);
