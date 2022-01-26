@@ -1,6 +1,8 @@
 # upload-file
 
-when form sets ``enctype="multipart/form-data"``, _csrf injected by nunjucks will invalid, you should add _csrf in other way(url or header).
+## Upload file by using egg file mode
+
+**notice**: when form sets ``enctype="multipart/form-data"``, _csrf injected by nunjucks will invalid, you should add _csrf in other way(url or header).
 
 1. set config
 ```js
@@ -14,6 +16,7 @@ config.multipart = {
 const files = ctx.request.files
 ```
 
+see [deatil](https://eggjs.org/zh-cn/basics/controller.html#%E8%8E%B7%E5%8F%96%E4%B8%8A%E4%BC%A0%E7%9A%84%E6%96%87%E4%BB%B6)
 
 ## QuickStart
 
