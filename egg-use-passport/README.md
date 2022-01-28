@@ -1,6 +1,46 @@
 # use-passport
 
+## use passport-local
 
+egg-passport-local don't have callback params, so you can write yourself or design your login api yourself.
+
+passport is recommended when you need oauth.
+
+1. plugin config
+```js
+exports.passport = {
+  enable: true,
+  package: 'egg-passport',
+};
+
+exports.passportLocal = {
+  enable: true,
+  package: 'egg-passport-local',
+};
+```
+
+2. setting verify, serializeUser, deserializeUser
+```js
+app.passport.verify(async (ctx, user) => {
+  const { username, password } = user;
+  if (username === 'admin' && password === '123456') {
+    return mockUser;
+  }
+  return null;
+});
+
+app.passport.serializeUser(async (ctx, user) => user && user.id);
+// this user is userId passed from `serializeUser`
+app.passport.deserializeUser(async (ctx, user) => (user ? mockUser : null));
+```
+
+3. use it
+```js
+router.post('/login', app.passport.authenticate('local', {
+  successRedirect: '/admin',
+  failureRedirect: '/login',
+}));
+```
 
 ## QuickStart
 

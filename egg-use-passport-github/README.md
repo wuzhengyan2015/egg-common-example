@@ -1,6 +1,8 @@
 # use-passport-github
 
+## Github login
 
+see [egg docs][https://eggjs.org/zh-cn/tutorials/passport.html] for more detail.
 
 ## QuickStart
 

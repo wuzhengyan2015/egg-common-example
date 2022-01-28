@@ -24,8 +24,8 @@ module.exports = appInfo => {
   };
 
   config.passportGithub = {
-    key: '9ca0ae90c854888c1be3',
-    secret: '51df1b2fa90cd29dd471a5fdb83627d1bc8aa776',
+    key: 'your_clientID',
+    secret: 'your_clientSecret',
     // callbackURL: '/passport/github/callback',
     // proxy: false,
   };
