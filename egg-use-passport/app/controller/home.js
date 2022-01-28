@@ -14,7 +14,7 @@ class HomeController extends Controller {
       await ctx.render('page/admin.html', ctx.user);
     } else {
       ctx.session.returnTo = ctx.path;
-      await ctx.render('page/login.html');
+      await ctx.redirect('/login');
     }
   }
 

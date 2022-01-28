@@ -3,18 +3,32 @@
 const { app, assert } = require('egg-mock/bootstrap');
 
 describe('test/app/controller/home.test.js', () => {
-  it('should assert', () => {
-    const pkg = require('../../../package.json');
-    assert(app.config.keys.startsWith(pkg.name));
+  it('should GET /', async () => {
+    app.mockCsrf();
+    await app.httpRequest()
+      .get('/admin')
+      .expect(302);
 
-    // const ctx = app.mockContext({});
-    // yield ctx.service.xx();
-  });
+    const loginFormRes = await app.httpRequest()
+      .get('/login');
 
-  it('should GET /', () => {
-    return app.httpRequest()
-      .get('/')
-      .expect('hi, egg')
-      .expect(200);
+    assert(loginFormRes.text.includes('<form action="/login" method="POST">'));
+
+    const loginRes = await app.httpRequest()
+      .post('/login')
+      .send('username=admin&password=123456')
+      .expect(302);
+
+    assert(loginRes.header.location, '/admin');
+
+    const cookie = loginRes.header['set-cookie'];
+
+    await app.httpRequest()
+      .get('/admin')
+      .set('Cookie', cookie)
+      .then(res => {
+        assert(res.text.includes('Hi'));
+      });
+
   });
 });
